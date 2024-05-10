@@ -2,16 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const booksController = require("./controllers/booksController"); // Import controllers
 const validateBook = require("./middlewares/validateBook");
+const logRequest = require("./middlewares/logRequest");
 const app = express();
 app.use(bodyParser.json()); // Parse incoming JSON data in request body
 app.use(bodyParser.urlencoded({ extended: true })); // For form data handling
 
 // Define individual routes for each controller function
-app.get("/books", booksController.getAllBooks);
-app.get("/books/:id", booksController.getBookById);
-app.post("/books", validateBook, booksController.createBook);
-app.put("/books/:id", validateBook, booksController.updateBook);
-app.delete("/books/:id", booksController.deleteBook);
+//app.get("/books", booksController.getAllBooks);
+//app.get("/books/:id", booksController.getBookById);
+//app.post("/books", validateBook, booksController.createBook);
+//app.put("/books/:id", validateBook, booksController.updateBook);
+//app.delete("/books/:id", booksController.deleteBook);
+
+app.get("/books", logRequest, booksController.getAllBooks);
 
 const port = process.env.PORT || 3000;
 
