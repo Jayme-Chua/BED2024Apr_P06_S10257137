@@ -65,7 +65,33 @@ const getBookById = async (req, res) => {
   };
 };
 
+const User = require("../models/user");
+async function searchUsers(req, res) {
+  const searchTerm = req.query.searchTerm; // Extract search term from query params
+
+  try {    
+    const users = await User.searchUsers(searchTerm);
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error searching users" });
+  }
+}
+async function getUsersWithBooks(req, res) {
+  try {
+    const users = await User.getUsersWithBooks();
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching users with books" });
+  }
+}
+
 module.exports = {
   getAllBooks,
   getBookById,
+  searchUsers,
+  getUsersWithBooks,
 };
+
+

@@ -4,6 +4,7 @@ const sql = require("mssql");
 const dbConfig = require("./dbConfig");
 const bodyParser = require("body-parser"); // Import body-parser
 const validateBook = require("./middlewares/validateBook");
+const usersController = require("./controllers/usersController");
 
 const app = express();
 const port = process.env.PORT || 3000; // Use environment variable or default port
@@ -19,6 +20,7 @@ app.get("/books/:id", booksController.getBookById);
 app.post("/books", validateBook, booksController.createBook); // POST for creating books (can handle JSON data)
 app.put("/books/:id", validateBook, booksController.updateBook); // PUT for updating books
 app.delete("/books/:id", booksController.deleteBook); // DELETE for deleting books
+app.get("/users/search", usersController.searchUsers);
 
 app.listen(port, async () => {
   try {
